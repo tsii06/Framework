@@ -8,6 +8,8 @@
 
 import etu2005.framework.ModelView;
 import etu2005.framework.Parametre;
+import etu2005.framework.Scope;
+import etu2005.framework.UploadFile;
 import etu2005.framework.AnnotationController;
 import etu2005.framework.Url;
 
@@ -15,6 +17,7 @@ import etu2005.framework.Url;
  *
  * @author Best
  */
+@Scope()
 @AnnotationController
 public class Classtest {
     String nom;
@@ -22,6 +25,7 @@ public class Classtest {
     java.util.Date utilDate;
     java.sql.Date sqlDate;
     String[] genre;
+    UploadFile file;
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -38,6 +42,9 @@ public class Classtest {
     public void setGenre(String[] genre){
         this.genre = genre;
     }
+    public void setFile(UploadFile file) {
+        this.file = file;
+    }
     public String getNom() {
         return nom;
     }
@@ -53,7 +60,9 @@ public class Classtest {
     public String[] getGenre(){
         return genre;
     }
-    
+    public UploadFile getFile() {
+        return file;
+    }
 
     @Url(nom="test")
     public ModelView view(){
@@ -64,10 +73,7 @@ public class Classtest {
 
     @Url(nom="getValues")
     public ModelView getValues() {
-        ModelView model = new ModelView();
-        for (int i = 0; i < getGenre().length; i++) {
-            System.out.println(getGenre()[i]);
-        }
+        ModelView model = new ModelView();  
         model.setView("Test.jsp");  
         return model;
     }
@@ -80,4 +86,13 @@ public class Classtest {
         return model;
     }
   
+    @Url(nom="getFile")
+    public ModelView getFiles(){
+        ModelView model = new ModelView();
+        System.out.println(this);
+        model.setView("index.jsp");
+        return model;
+    }
+
+
 }
